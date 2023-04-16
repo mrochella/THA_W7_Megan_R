@@ -14,6 +14,7 @@ namespace THA_W7_MEGAN_R
     public partial class Form2 : Form
     {
         Button[,] buttons;
+        List<Button> selectedSeats;
         public Form1 frm1;
         Random randomly;
         int unavailable, abjadKursi, stat, bookedSeats;
@@ -32,6 +33,7 @@ namespace THA_W7_MEGAN_R
             int x = 10;
             int y = 10;
             buttons = new Button[10,10];
+            selectedSeats = new List<Button>();
             Button seatings = new Button();
             Random rnd = new Random();
             for (int i = 0; i < 10; i++)
@@ -46,11 +48,12 @@ namespace THA_W7_MEGAN_R
                     buttons[i, j].Tag = Convert.ToChar(abjadKursi) + (j + 1).ToString();
                     buttons[i, j].Text = buttons[i, j].Tag.ToString();
                     buttons[i, j].Font = new Font("Arial", 7);
+                    selectedSeats.Add(buttons[i, j]);
                     if (stat == 0 && bookedSeats <= unavailable)
                     {
                         buttons[i, j].BackColor = Color.Tomato;
                         bookedSeats++;
-                        if (buttons[i,j].BackColor == Color.Tomato)
+                        if (buttons[i, j].BackColor == Color.Tomato)
                         {
                             buttons[i, j].Enabled = false;
                             /*msg = "Sorry, this seat is taken.";
@@ -60,6 +63,7 @@ namespace THA_W7_MEGAN_R
                     else
                     {
                         buttons[i, j].BackColor = Color.LightGray;
+                        buttons[i, j].Click += changeSeatColor;
                     }
                     this.Controls.Add(buttons[i, j]);
                     y += 35;
@@ -106,15 +110,36 @@ namespace THA_W7_MEGAN_R
 
         private void butt_reserve_click(object sender, EventArgs e)
         {
-            msg = "Your booking has completed.\nChosen seats:";
+            int hijau = 0;
+            foreach (Button coba in selectedSeats)
+            {
+                if (coba.BackColor == Color.SpringGreen)
+                {
+                    coba.BackColor = Color.Tomato;
+                    hijau++;
+                }
+            }
+            msg = "Your booking has completed.";
             MessageBox.Show(msg, "Thank you for your purchase!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void butt_reset_click(object sender, EventArgs e)
         {
-            msg = "Are you sure you want to reset the seats?";
-            MessageBox.Show(msg, "Hello!", MessageBoxButtons.YesNo);
-            //buttons.BackColor = Color.LightGray;
+            msg = "You're about to clear all the seats.";
+            MessageBox.Show(msg, "Hello!", MessageBoxButtons.OK);
+            foreach (Button coba in selectedSeats)
+            {
+                if (coba.BackColor == Color.Tomato)
+                {
+                    coba.BackColor = Color.LightGray;
+                }
+            }
+        }
+
+        private void changeSeatColor(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            button.BackColor = Color.SpringGreen;
         }
     }
 }

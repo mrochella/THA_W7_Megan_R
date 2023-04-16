@@ -114,8 +114,8 @@ namespace THA_W7_MEGAN_R
             this.Controls.Add(movLab1);
 
             Label movLab2 = new Label();
-            string four = File.ReadAllText("four.txt");
-            movLab2.Text = four;
+            string nf = File.ReadAllText("four.txt");
+            movLab2.Text = nf;
             movLab2.Font = new Font("Arial", movLab2.Font.Size, FontStyle.Bold);
             movLab2.Location = new Point(8, 295);
             movLab2.Size = new Size(130, 35);
@@ -146,8 +146,8 @@ namespace THA_W7_MEGAN_R
             this.Controls.Add(movLab5);
 
             Label movLab6 = new Label();
-            string birds = File.ReadAllText("bof.txt");
-            movLab6.Text = birds;
+            string hq = File.ReadAllText("bof.txt");
+            movLab6.Text = hq;
             movLab6.Font = new Font("Arial", movLab6.Font.Size, FontStyle.Bold);
             movLab6.Location = new Point(304, 155);
             movLab6.Size = new Size(100, 35);
